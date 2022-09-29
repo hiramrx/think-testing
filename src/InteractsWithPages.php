@@ -13,11 +13,10 @@ namespace think\testing;
 use Exception;
 use InvalidArgumentException;
 use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\ExpectationFailedException as PHPUnitException;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Form;
 use think\facade\Request;
-use think\facade\Url;
+use think\facade\Route;
 use think\File;
 use think\helper\Str;
 use think\response\Redirect;
@@ -155,7 +154,7 @@ trait InteractsWithPages
     protected function addRootToRelativeUrl($url)
     {
         if (!Str::startsWith($url, ['http', 'https'])) {
-            return Url::build($url);
+            return Route::buildUrl($url);
         }
 
         return $url;
