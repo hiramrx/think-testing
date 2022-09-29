@@ -4,16 +4,17 @@
     "type": "think-testing",
     "authors": [
         {
-            "name": "yunwuxin",
-            "email": "448901948@qq.com"
+            "name": "hiramrx",
+            "email": "hiramx@qq.com"
         }
     ],
     "require": {
         "topthink/think-installer": "~2.0",
-	"topthink/framework": "5.1.*",
-        "topthink/think-helper": "~1.0",
-        "phpunit/phpunit": "^6.0",
-        "symfony/dom-crawler": "^2.8.8"
+	    "topthink/framework": "6.0.*",
+        "topthink/think-helper": "^3.1.1",
+        "phpunit/phpunit": "^9.0",
+        "symfony/dom-crawler": "^2.8.8",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
@@ -22,5 +23,10 @@
         "files": [
             "src/config.php"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "topthink/think-installer": true
+        }
     }
 }

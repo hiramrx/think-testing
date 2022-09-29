@@ -29,8 +29,6 @@ class Test extends Command
 
     public function execute(Input $input, Output $output)
     {
-        //注册命名空间
-        Loader::addNamespace('tests', Env::get('root_path') . 'tests');
 
         Session::init();
         $argv = $_SERVER['argv'];

@@ -12,6 +12,7 @@ namespace think\testing;
 
 use Exception;
 use InvalidArgumentException;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\ExpectationFailedException as PHPUnitException;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Form;
@@ -481,7 +482,7 @@ trait InteractsWithPages
         } catch (PHPUnitException $e) {
             $message = $message ?: "A request to [{$uri}] failed. Received status code [{$status}].";
 
-            throw new HttpException($message);
+            throw new ExpectationFailedException($message);
         }
     }
 
