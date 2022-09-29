@@ -11,8 +11,20 @@
 namespace think\testing;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use think\App;
 
 abstract class TestCase extends PHPUnitTestCase
 {
-    use ApplicationTrait, AssertionsTrait, CrawlerTrait;
+    use ApplicationTrait, AssertionsTrait, CrawlerTrait, InteractsWithContainer;
+
+    protected App $app;
+
+    protected function setUp(): void
+    {
+
+        $this->app = new App();
+        $this->app->initialize();
+
+        parent::setUp();
+    }
 }
