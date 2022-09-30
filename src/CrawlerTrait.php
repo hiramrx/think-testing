@@ -70,14 +70,12 @@ trait CrawlerTrait
     {
         $this->currentUri = $this->prepareUrlForRequest($uri);
 
-        $request = Request::create(
-            $this->currentUri, $method, $parameters,
-            $cookies, $files, array_replace($this->serverVariables, $server)
-        );
+        $request = new \think\Request();
+        $request->setMethod($method);
+        $request->setPathinfo($this->currentUri);
 
         try {
-            Route::setRequest($request);
-            $response = App::bindTo('request', $request)->run();
+            $response = $this->app->http->run($request);
         } catch (\Throwable $e) {
             $response = Error::getExceptionHandler()->render($e);
         }

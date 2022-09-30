@@ -55,7 +55,7 @@ trait InteractsWithPages
 
     protected function see($text, $negate = false)
     {
-        $method = $negate ? 'assertNotRegExp' : 'assertRegExp';
+        $method = $negate ? 'assertNotRegExp' : 'assertMatchesRegularExpression';
 
         $rawPattern = preg_quote($text, '/');
 
@@ -538,10 +538,6 @@ trait InteractsWithPages
     {
         if (Str::startsWith($uri, '/')) {
             $uri = substr($uri, 1);
-        }
-
-        if (!Str::startsWith($uri, 'http')) {
-            $uri = $this->baseUrl . '/' . $uri;
         }
 
         return trim($uri, '/');
