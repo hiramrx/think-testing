@@ -528,7 +528,7 @@ trait InteractsWithPages
     protected function followRedirects()
     {
         while ($this->response instanceof Redirect) {
-            $this->makeRequest('GET', $this->response->getTargetUrl());
+            $this->makeRequest('GET', $this->response->getData());
         }
 
         return $this;

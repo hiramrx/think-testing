@@ -10,14 +10,12 @@
 // +----------------------------------------------------------------------
 namespace think\testing;
 
-use think\Error;
-use think\facade\App;
+use think\exception\Handle;
 use think\facade\Cookie;
-use think\facade\Request;
-use think\Response;
-use think\facade\Route;
 use think\helper\Arr;
 use think\helper\Str;
+use think\Request;
+use think\Response;
 
 trait CrawlerTrait
 {
@@ -70,14 +68,18 @@ trait CrawlerTrait
     {
         $this->currentUri = $this->prepareUrlForRequest($uri);
 
-        $request = new \think\Request();
+        $request = new Request();
         $request->setMethod($method);
         $request->setPathinfo($this->currentUri);
+        $request->withPost($parameters);
+        $request->withCookie($cookies);
+        $request->withServer($server);
+        $request->withFiles($files);
 
         try {
             $response = $this->app->http->run($request);
         } catch (\Throwable $e) {
-            $response = Error::getExceptionHandler()->render($e);
+            $response = $this->app->make(Handle::class)->render($request, $e);
         }
 
         return $this->response = $response;
@@ -114,7 +116,7 @@ trait CrawlerTrait
         $actual = json_decode($this->response->getContent(), true);
 
         if (is_null($actual) || false === $actual) {
-            return $this->fail('Invalid JSON was returned from the route. Perhaps an exception was thrown?');
+            $this->fail('Invalid JSON was returned from the route. Perhaps an exception was thrown?');
         }
 
         $actual = json_encode(Arr::sortRecursive(
@@ -153,12 +155,6 @@ trait CrawlerTrait
         }
 
         return $expected;
-    }
-
-    protected function seeModule($module)
-    {
-        $this->assertEquals($module, request()->module());
-        return $this;
     }
 
     protected function seeController($controller)

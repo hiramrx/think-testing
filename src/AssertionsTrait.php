@@ -11,8 +11,8 @@
 namespace think\testing;
 
 use PHPUnit\Framework\Assert as PHPUnit;
+use think\facade\Route;
 use think\facade\Session;
-use think\facade\Url;
 use think\response\View;
 
 trait AssertionsTrait
@@ -72,7 +72,7 @@ trait AssertionsTrait
     {
         $this->assertInstanceOf('think\response\Redirect', $this->response);
 
-        PHPUnit::assertEquals(Url::build($uri, $params), $this->response->getTargetUrl());
+        PHPUnit::assertEquals(Route::buildUrl($uri, $params), $this->response->getData());
     }
 
     public function assertSessionHas($key, $value = null)
