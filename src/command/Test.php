@@ -12,7 +12,6 @@
 namespace think\testing\command;
 
 use PHPUnit\TextUI\Command as TextUICommand;
-use PHPUnit\Util\Blacklist;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
@@ -33,11 +32,8 @@ class Test extends Command
         array_shift($argv);
         array_shift($argv);
         array_unshift($argv, 'phpunit');
-        Blacklist::$blacklistedClassNames = [];
 
-        $code = (new TextUICommand())->run($argv, false);
-
-        return $code;
+        return (new TextUICommand())->run($argv, false);
     }
 
 }

@@ -9,8 +9,7 @@
         }
     ],
     "require": {
-        "topthink/think-installer": "~2.0",
-	    "topthink/framework": "6.0.*",
+        "topthink/framework": "6.0.*",
         "topthink/think-helper": "^3.1.1",
         "phpunit/phpunit": "^9.0",
         "symfony/dom-crawler": "^2.8.8",
@@ -25,9 +24,13 @@
             "src/config.php"
         ]
     },
-    "config": {
-        "allow-plugins": {
-            "topthink/think-installer": false
+    "extra": {
+        "think": {
+            "services": [
+                "think\\testing\\Service"
+            ]
         }
+    },
+    "config": {
     }
 }
