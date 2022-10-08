@@ -4,6 +4,7 @@ namespace think\testing;
 
 use Closure;
 use Mockery;
+use Mockery\MockInterface;
 
 trait InteractsWithContainer
 {
@@ -38,8 +39,8 @@ trait InteractsWithContainer
      * Mock an instance of an object in the container.
      *
      * @param  string  $abstract
-     * @param  \Closure|null  $mock
-     * @return \Mockery\MockInterface
+     * @param  Closure|null  $mock
+     * @return MockInterface
      */
     protected function mock($abstract, Closure $mock = null)
     {
@@ -50,8 +51,8 @@ trait InteractsWithContainer
      * Mock a partial instance of an object in the container.
      *
      * @param  string  $abstract
-     * @param  \Closure|null  $mock
-     * @return \Mockery\MockInterface
+     * @param  Closure|null  $mock
+     * @return MockInterface
      */
     protected function partialMock($abstract, Closure $mock = null)
     {
@@ -62,8 +63,8 @@ trait InteractsWithContainer
      * Spy an instance of an object in the container.
      *
      * @param  string  $abstract
-     * @param  \Closure|null  $mock
-     * @return \Mockery\MockInterface
+     * @param  Closure|null  $mock
+     * @return MockInterface
      */
     protected function spy($abstract, Closure $mock = null)
     {
@@ -78,25 +79,7 @@ trait InteractsWithContainer
      */
     protected function forgetMock($abstract)
     {
-        $this->app->forgetInstance($abstract);
-
-        return $this;
-    }
-
-    /**
-     * Register an empty handler for Laravel Mix in the container.
-     *
-     * @return $this
-     */
-    protected function withoutMix()
-    {
-        if ($this->originalMix == null) {
-            $this->originalMix = app(Mix::class);
-        }
-
-        $this->swap(Mix::class, function () {
-            return '';
-        });
+        $this->app->delete($abstract);
 
         return $this;
     }
